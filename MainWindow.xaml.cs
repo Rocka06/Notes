@@ -11,6 +11,7 @@ namespace Notes
         {
             InitializeComponent();
             LoadNotes();
+            HandleLang();
         }
 
         private void LoadNotes()
@@ -24,13 +25,13 @@ namespace Notes
             string title = NewNoteTitle.Text.Trim();
             if (string.IsNullOrEmpty(title))
             {
-                MessageBox.Show("Note title cannot be empty.");
+                MessageBox.Show(Notes.Language.GetLanguage(Settings.SelectedLanguage).EmptyError);
                 return;
             }
 
             if (m_Notes.Any(n => n.Title == title))
             {
-                MessageBox.Show("Note with this title already exists.");
+                MessageBox.Show(Notes.Language.GetLanguage(Settings.SelectedLanguage).ExistError);
                 return;
             }
 
@@ -44,6 +45,7 @@ namespace Notes
             SettingsWindow settingsWindow = new();
             settingsWindow.ShowDialog();
             LoadNotes();
+            HandleLang();
         }
         private void DeleteNote_Click(object sender, RoutedEventArgs e)
         {
@@ -63,6 +65,16 @@ namespace Notes
                 Note.SaveNotes(m_Notes);
                 LoadNotes();
             }
+        }
+
+        private void HandleLang()
+        {
+            Language language = Notes.Language.GetLanguage(Settings.SelectedLanguage);
+
+            Title = language.Save;
+            NewNoteButton.Content = language.AddNote;
+            SettingsButton.Content = language.Settings;
+            DeleteButton.Content = language.Delete;
         }
 
         private void NoteList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

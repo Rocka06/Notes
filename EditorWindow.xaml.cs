@@ -21,16 +21,25 @@ namespace Notes
         public EditorWindow(Note note)
         {
             InitializeComponent();
+            HandleLang();
             m_Note = note;
-            Title.Content = m_Note.Title;
+            TitleTxt.Content = m_Note.Title;
             TxtContent.Text = m_Note.Content;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             m_Note.Content = TxtContent.Text;
-            MessageBox.Show("Note saved.");
+            MessageBox.Show(Notes.Language.GetLanguage(Settings.SelectedLanguage).Saved);
             Close();
+        }
+
+        private void HandleLang()
+        {
+            Language language = Notes.Language.GetLanguage(Settings.SelectedLanguage);
+
+            Title = language.Editor;
+            SaveButton.Content = language.Save;
         }
     }
 }

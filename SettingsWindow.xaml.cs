@@ -8,6 +8,10 @@ namespace Notes
         public SettingsWindow()
         {
             InitializeComponent();
+            HandleLang();
+
+            LanguageSelect.ItemsSource = Notes.Language.Languages.Keys;
+            LanguageSelect.SelectedItem = Settings.SelectedLanguage;
             txtPath.Text = Settings.SavePath;
         }
 
@@ -28,9 +32,22 @@ namespace Notes
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             Settings.SavePath = txtPath.Text;
+            Settings.SelectedLanguage = LanguageSelect.Text;
+
             Settings.Save();
-            MessageBox.Show("Settings saved.");
+            MessageBox.Show(Notes.Language.GetLanguage(Settings.SelectedLanguage).Saved);
             Close();
+        }
+
+        private void HandleLang()
+        {
+            Language language = Notes.Language.GetLanguage(Settings.SelectedLanguage);
+
+            Title = language.Save;
+            BrowseButton.Content = language.Browse;
+            SaveButton.Content = language.Save;
+            LangLabel.Content = language.LangLabel;
+            PathLabel.Content = language.PathLabel;
         }
     }
 }

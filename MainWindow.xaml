@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Notes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="360">
+        Title="Notes" Height="450" Width="400">
     <Grid>
         <StackPanel Margin="10">
             <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                 <TextBox x:Name="NewNoteTitle" Width="200" Margin="0 0 10 0" />
-                <Button Content="Add Note" Click="AddNote_Click"/>
-                <Button Content="Settings" Click="Settings_Click" Margin="10 0 0 0"/>
+                <Button x:Name="NewNoteButton" Content="Add Note" Click="AddNote_Click"/>
+                <Button x:Name="SettingsButton" Content="Settings" Click="Settings_Click" Margin="10 0 0 0"/>
             </StackPanel>
             <ListBox x:Name="NoteList" DisplayMemberPath="Title" Height="300" MouseDoubleClick="NoteList_MouseDoubleClick" SelectionChanged="NoteList_SelectionChanged"/>
-            <Button Content="Delete Selected" x:Name="DeleteButton" IsEnabled="False" Click="DeleteNote_Click" Margin="0 10 0 0"/>
+            <Button Content="Delete" x:Name="DeleteButton" IsEnabled="False" Click="DeleteNote_Click" Margin="0 10 0 0"/>
         </StackPanel>
     </Grid>
 </Window>
